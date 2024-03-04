@@ -3,10 +3,10 @@
 	return {
 		"name":			"JSON+++",
 		"id":			"JSON_plus_plus_ext",
-		"version":		"1.11",
-		"description":	"JSON++",
+		"version":		"0.1",
+		"description":	"A JSON++ mod for Construct 2",
 		"author":		"PlayLive",
-		"help url":		"https://www.construct.net/br/forum/extending-construct-2/addons-29/plugin-json-114772",
+		"help url":		"https://github.com/starterbeeee/JSON-Plus-Extended/",
 		"category":		"Addon",
 		"type":			"object",
 		"rotatable":	false,

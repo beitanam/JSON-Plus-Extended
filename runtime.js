@@ -198,9 +198,7 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 			var application = new RegExp("application/json").test(inst.xhr.getResponseHeader("Content-Type"));
 			if (inst.xhr.status === 200 && application) {
 				inst.data = JSON.parse(inst.xhr.responseText);
-				try{
-					inst.datalength = inst.data.length;
-				}finally{}
+				inst.datalength = inst.data.length;
 				inst.error = "";
 				inst.runtime.trigger(cr.plugins_.JSON_plus_plus.prototype.cnds.OnComplete, inst);
 				inst.runtime.trigger(cr.plugins_.JSON_plus_plus.prototype.cnds.OnAnyComplete, inst);
