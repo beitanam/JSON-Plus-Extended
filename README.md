@@ -1,2 +1,6 @@
 # JSON-Plus-Extended
- Custom JSON++ for construct 2 modifications that are for myself
+This is a JSON++ for Construct 2 modification.
+
+I started this as there were features missing that i required.
+
+Includes certain patches as well i suppose.
