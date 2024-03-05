@@ -1,9 +1,9 @@
 ﻿function GetPluginSettings()
 {
 	return {
-		"name":			"JSON+++",
-		"id":			"JSON_plus_plus_ext",
-		"version":		"0.1",
+		"name":			"JSON++",
+		"id":			"JSON_plus_plus",
+		"version":		"1.12",
 		"description":	"A JSON++ mod for Construct 2",
 		"author":		"PlayLive",
 		"help url":		"https://github.com/starterbeeee/JSON-Plus-Extended/",

@@ -108,18 +108,25 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 	    	case "name":
 	    		return Object.keys(obj)[args_[args_.length-1]];
 	    	case "size":
-	    		return Object.keys(obj).length;
+				if(obj == null || obj == undefined){return 0;}
+				return Object.keys(obj).length;
 	    	case "value":
-	    		if (typeof obj === "number")
-					return obj;
-				else if (typeof obj === "boolean")
-					return obj.toString();
-				else if (obj === null)
-					return "null";
-				else {
-					var ret = JSON.stringify(obj);
-					if (typeof ret != "undefined")
-						return args_.length === 1 ? ret : ret.substr(1, ret.length-2);
+				if(obj == null){return "null";}
+				switch(typeof obj){
+					case "number":
+						return obj;
+					case "boolean":
+						return obj.toString();
+					default:
+						try{
+							var jsoncheck = JSON.parse(JSON.stringify(obj.toString()));
+							return obj;
+						}finally{}
+						try{
+							var ret = JSON.stringify(obj);
+							if (typeof ret != "undefined")
+								return args_.length === 1 ? ret : ret.substr(1, ret.length-2);
+						}catch(err){return "null";}
 				};
 	    	case "indexOf":
 	    		if (typeof obj != "undefined") {
@@ -198,7 +205,7 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 			var application = new RegExp("application/json").test(inst.xhr.getResponseHeader("Content-Type"));
 			if (inst.xhr.status === 200 && application) {
 				inst.data = JSON.parse(inst.xhr.responseText);
-				inst.datalength = inst.data.length;
+				try{inst.datalength = inst.data.length;}finally{}
 				inst.error = "";
 				inst.runtime.trigger(cr.plugins_.JSON_plus_plus.prototype.cnds.OnComplete, inst);
 				inst.runtime.trigger(cr.plugins_.JSON_plus_plus.prototype.cnds.OnAnyComplete, inst);
