@@ -83,7 +83,7 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 	{
 		/////////////////////////////////////
 		args_ = typeof args_ === "string" ? JSON.parse(args_) : args_;
-		var i = (type_ === "name" || type_ === "size" || type_ === "value" || type_ === "indexOf" || type_ === "typeof") ? 1 : 0;
+		var i = (type_ === "name" || type_ === "size" || type_ === "sizeofjs" || type_ === "value" || type_ === "indexOf" || type_ === "typeof") ? 1 : 0;
 		var str = "", loop = args_.length;
 		loop -= (type_ === "name" || type_ === "indexOf" || type_ === "typeof") || (type_ === "del" && typeof args_[loop-1] === "number") ? 1 : 0;
 	    /////////////////////////////////////
@@ -108,8 +108,16 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 	    	case "name":
 	    		return Object.keys(obj)[args_[args_.length-1]];
 	    	case "size":
-				if(obj == null || obj == undefined){return 0;}
+				if(obj == null || typeof obj == "undefined"){return 0;}
 				return Object.keys(obj).length;
+			case "sizeofjs":
+				if(obj == null || typeof obj == "undefined"){return 0;}
+				try{
+					var jsoncheck = JSON.parse(JSON.stringify(obj.toString()));
+					return obj.length;
+				}catch(e){
+					return 0;
+				};
 	    	case "value":
 				if(obj == null){return "null";}
 				switch(typeof obj){
@@ -119,11 +127,7 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 						return obj.toString();
 					default:
 						try{
-							var jsoncheck = JSON.parse(JSON.stringify(obj.toString()));
-							return obj;
-						}finally{}
-						try{
-							var ret = JSON.stringify(obj);
+							let ret = JSON.stringify(obj);
 							if (typeof ret != "undefined")
 								return args_.length === 1 ? ret : ret.substr(1, ret.length-2);
 						}catch(err){return "null";}
@@ -398,6 +402,11 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 		ret.set_any(this.Construct("value", arguments));
 	};
 
+	Exps.prototype.GetSizeOfJSONArray = function (ret)
+	{
+		ret.set_int(this.Construct("sizeofjs", arguments));
+	};
+
 	Exps.prototype.GetSize = function (ret)
 	{
 		ret.set_int(this.Construct("size", arguments));
@@ -433,14 +442,14 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 		ret.set_float(this.download_size);
 	};
 
-	Exps.prototype.URL = function (ret)
-	{
-		ret.set_string(this.last_url);
-	};
-
 	Exps.prototype.DocumentLength = function (ret)
 	{
 		ret.set_int(this.datalength);
+	};
+
+	Exps.prototype.URL = function (ret)
+	{
+		ret.set_string(this.last_url);
 	};
 	
 	pluginProto.exps = new Exps();

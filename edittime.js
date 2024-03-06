@@ -85,6 +85,8 @@ AddExpression(8, ef_return_number, "Get loaded", "JSON download", "DocumentLoade
 AddExpression(9, ef_return_number, "Get total size", "JSON download", "DocumentTotalSize", "Get the total file size.");
 AddExpression(10, ef_return_string, "Get URL", "JSON", "URL", "Get the last URL.");
 AddExpression(11, ef_return_number, "Get length", "JSON download", "DocumentLength", "Get the length of the current json.");
+AddExpression(12, ef_return_number | ef_variadic_parameters, "Get size of JSON array", "Get size of array", "GetSizeOfJSONArray", "Get the size/length of a json array, provide params as if you were using GetValue.");
+
 ////////////////////////////////////////
 ACESDone();
 
