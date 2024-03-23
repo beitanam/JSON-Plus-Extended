@@ -127,7 +127,7 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 						return obj.toString();
 					default:
 						try{
-							let ret = JSON.stringify(obj);
+							var ret = JSON.stringify(obj);
 							if (typeof ret != "undefined")
 								return args_.length === 1 ? ret : ret.substr(1, ret.length-2);
 						}catch(err){return "null";}
