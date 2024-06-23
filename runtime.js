@@ -1,4 +1,4 @@
-﻿// ECMAScript 5 strict mode
+// ECMAScript 5 strict mode
 "use strict";
 
 assert2(cr, "cr namespace not created");
@@ -444,7 +444,11 @@ cr.plugins_.JSON_plus_plus = function(runtime)
 
 	Exps.prototype.DocumentLength = function (ret)
 	{
-		ret.set_int(this.datalength);
+		if(typeof(this.datalength) === 'number'){
+			ret.set_int(this.datalength);
+		}else{
+			ret.set_int(0);
+		}
 	};
 
 	Exps.prototype.URL = function (ret)
